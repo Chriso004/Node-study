@@ -4,15 +4,19 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const dotenv = require("dotenv");
 const path = require("path");
-const sessionInit = require("./src/config/sessionSet");
+const sessionInit = require("./src/config/config");
 
 dotenv.config();
 const app = express();
 const index = require("./routers/index");
 const login = require("./routers/login");
+const db = require("./routers/dbManage");
+const test = require("./routers/test");
 
 app.use('/', index);
 app.use('/login', login);
+app.use('/db', db);
+app.use('/test', test);
 
 app.set('port', process.env.PORT || 3000);
 
@@ -22,6 +26,7 @@ app.set('views', path.join(__dirname, 'public', 'views'));
 
 app.use(morgan('dev'));
 app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/script', express.static(path.join(__dirname, 'src', 'services')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));

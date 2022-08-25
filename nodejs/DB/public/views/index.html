@@ -7,7 +7,19 @@
     <title>Document</title>
 </head>
 <body>
-    <button class="login" onclick="location.href='/login'">로그인</button>
-    <button class="db-manage">DB 관리</button>
+    <button class="login" onClick=login()>로그인</button>
+    <button class="db-manage" onClick=db()>DB 관리</button>
+    <button class="test" onClick=test()>테스트 페이지</button>
 </body>
+<script>
+    const login = () => {
+        location.href = "/login";
+    }
+    const db = () => {
+        location.href = "/db";
+    }
+    const test = () => {
+        location.href = "/test"
+    }
+</script>
 </html>
