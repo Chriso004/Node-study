@@ -8,15 +8,11 @@ const sessionInit = require("./src/config/config");
 
 dotenv.config();
 const app = express();
-const index = require("./routers/index");
-const login = require("./routers/login");
-const db = require("./routers/dbManage");
-const test = require("./routers/test");
+const index = require("./routers/router");
+const goods = require("./routers/goods");
 
-app.use('/', index);
-app.use('/login', login);
-app.use('/db', db);
-app.use('/test', test);
+app.use("/", index);
+app.use("/goods", goods);
 
 app.set('port', process.env.PORT || 3000);
 
@@ -24,9 +20,11 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'public', 'views'));
 
-app.use(morgan('dev'));
 app.use('/', express.static(path.join(__dirname, 'public')));
-app.use('/script', express.static(path.join(__dirname, 'src', 'services')));
+app.use('/script', express.static(path.join(__dirname, 'public', 'js')));
+app.use('/config', express.static(path.join(__dirname, 'src', 'config')));
+app.use('/services', express.static(path.join(__dirname, 'src', 'services')));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
